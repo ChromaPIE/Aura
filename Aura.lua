@@ -229,14 +229,16 @@ function Game:update(dt)
     if AnimatedJokersDT > 0.1 then
         AnimatedJokersDT = AnimatedJokersDT - 0.1
         for k, v in pairs(AnimatedJokers) do
-            if not AnimatedJokers[k].individual then
-                local obj = G.P_CENTERS[k]
-                if obj then
-                    local loc = obj.pos.y*(AnimatedJokers[k].frames_per_row or AnimatedJokers[k].frames)+obj.pos.x
-                    loc = loc + 1
-                    if loc >= AnimatedJokers[k].frames then loc = 0 end
-                    obj.pos.x = loc%(AnimatedJokers[k].frames_per_row or AnimatedJokers[k].frames)
-                    obj.pos.y = math.floor(loc/(AnimatedJokers[k].frames_per_row or AnimatedJokers[k].frames))
+            if v.frames then
+                if not AnimatedJokers[k].individual then
+                    local obj = G.P_CENTERS[k]
+                    if obj then
+                        local loc = obj.pos.y*(AnimatedJokers[k].frames_per_row or AnimatedJokers[k].frames)+obj.pos.x
+                        loc = loc + 1
+                        if loc >= AnimatedJokers[k].frames then loc = 0 end
+                        obj.pos.x = loc%(AnimatedJokers[k].frames_per_row or AnimatedJokers[k].frames)
+                        obj.pos.y = math.floor(loc/(AnimatedJokers[k].frames_per_row or AnimatedJokers[k].frames))
+                    end
                 end
             end
         end
